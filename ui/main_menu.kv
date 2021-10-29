@@ -1,0 +1,419 @@
+#:import unblock_double ui.checkbox_logic.unblock_double
+#:import block_double ui.checkbox_logic.block_double
+#:import run_psi main_utility.run_psi
+#:import open_registers_menu ui.popups.open_registers_menu
+#:include ui/popups.kv
+
+Screen:
+    MDBoxLayout:
+
+        orientation:    'vertical'
+        padding:    10
+        MDBoxLayout:
+            orientation:    'horizontal'
+            size_hint_y:    0.1
+            md_bg_color:    app.theme_cls.bg_light
+            BoxLayout:
+                orientation:   "vertical"
+                size_hint_x:    0.4
+                BoxLayout:
+                    orientation:    'horizontal'
+                    MDCheckbox:
+                        group:  'auto'
+                        allow_no_selection: False
+                        active: True
+                        id:     auto_selector
+                        on_release:   block_double()
+                        selected_color: [1,1,1,1]
+                        unselected_color:   [1,1,1,0.5]
+                        disabled_color: [1,1,1,0.2]
+                    MDLabel:
+                        text:   "Автономные испытания"
+                        font_size:  dp(20)
+                BoxLayout:
+                    orientation:    'horizontal'
+                    MDCheckbox:
+                        group:  'auto'
+                        allow_no_selection: False
+                        id:     common_selector
+                        on_release:   unblock_double()
+                        selected_color: [1,1,1,1]
+                        unselected_color:   [1,1,1,0.5]
+                        disabled_color: [1,1,1,0.2]
+                    MDLabel:
+                        text:   "Совместные испытания"
+                        font_size:  dp(20)
+            Widget:
+                size_hint_x:    0.2
+            BoxLayout:
+                orientation:   "vertical"
+                size_hint_x:    0.4
+                id: common_test
+                disabled: True
+                BoxLayout:
+                    orientation:    'horizontal'
+                    MDCheckbox:
+                        group:  'sv'
+                        allow_no_selection: False
+                        active: True
+                        id:     single_selector
+                        selected_color: [1,1,1,1]
+                        unselected_color:   [1,1,1,0.5]
+                        disabled_color: [1,1,1,0.2]
+                    MDLabel:
+                        text:   "Одиночный СВ"
+                        font_size:  dp(20)
+                BoxLayout:
+                    orientation:    'horizontal'
+                    MDCheckbox:
+                        group:  'sv'
+                        allow_no_selection: False
+                        id:     double_selector
+                        selected_color: [1,1,1,1]
+                        unselected_color:   [1,1,1,0.5]
+                        disabled_color: [1,1,1,0.2]
+                    MDLabel:
+                        text:   "Двойной СВ"
+                        font_size:  dp(20)
+        BoxLayout:
+            orientation:        'horizontal'
+            size_hint_y:        0.1
+            spacing:    10
+            BoxLayout:
+                orientation:    'horizontal'
+                spacing:    10
+                size_hint_x:    0.35
+                Label:
+                    text:           "Количество циклов:"
+                    font_size:      dp(20)
+                    #size_hint_x:    0.2
+                MDTextField:
+                    id:         cycle_number
+                    size_hint_x:    0.2
+                    font_size:  dp(20)
+                    text:       "1"
+                    required: True
+                    input_filter:   'int'
+                    color_mode: "custom"
+                    line_color_focus:   app.theme_cls.opposite_bg_normal
+                    pos_hint:   {"center_x:": .5, "center_y": .5}
+                MDRaisedButton:
+                    text:       "Пуск"
+                    pos_hint:   {"center_x:": .5, "center_y": .5}
+                    font_size: '20dp'
+                    id:         run
+                    on_press:   run_psi()
+                MDRaisedButton:
+                    text:       "Стоп"
+                    pos_hint:   {"center_x:": .5, "center_y": .5}
+                    font_size: '20dp'
+                    on_press:   app.stop_psi = True
+            BoxLayout:
+                size_hint_x:    0.2
+                Label:
+                    text:   "Текущий цикл:"
+                    font_size:  dp(20)
+                Label:
+                    font_size:  dp(20)
+                    text:       "0"
+                    id:         current_cycle
+            Widget:
+                size_hint_x:    0.2
+            BoxLayout:
+                orientation:    'horizontal'
+                size_hint_x:    0.4
+                Label:
+                    text:   "Напряжение:"
+                    size_hint_x:    0.2
+                    font_size:  dp(20)
+                BoxLayout:
+                    size_hint_x:    0.4
+                    orientation:    'vertical'
+                    BoxLayout:
+                        orientation:    'horizontal'
+                        Label:
+                            text:   'Пониженное'
+                        Label:
+                            text:   'Номинал'
+                        Label:
+                            text:   'Повышенное'
+                        Label:
+                            text:   'Все три'
+
+                    BoxLayout:
+                        orientation:    'horizontal'
+                        MDCheckbox:
+                            group:  'voltage'
+                            allow_no_selection: False
+                            id:     low_voltage
+                            selected_color: [1,1,1,1]
+                            unselected_color:   [1,1,1,0.5]
+                            disabled_color: [1,1,1,0.2]
+                        MDCheckbox:
+                            group:  'voltage'
+                            allow_no_selection: False
+                            id:     norm_voltage
+                            active: True
+                            selected_color: [1,1,1,1]
+                            unselected_color:   [1,1,1,0.5]
+                            disabled_color: [1,1,1,0.2]
+                        MDCheckbox:
+                            group:  'voltage'
+                            allow_no_selection: False
+                            id:     high_voltage
+                            selected_color: [1,1,1,1]
+                            unselected_color:   [1,1,1,0.5]
+                            disabled_color: [1,1,1,0.2]
+                        MDCheckbox:
+                            group:  'voltage'
+                            allow_no_selection: False
+                            id:     all_voltage
+                            selected_color: [1,1,1,1]
+                            unselected_color:   [1,1,1,0.5]
+                            disabled_color: [1,1,1,0.2]
+
+
+        BoxLayout:
+            orientation:    'horizontal'
+            size_hint_y:    0.8
+            Widget:
+                size_hint_x:    0.1
+            MDBoxLayout:
+                md_bg_color:    app.theme_cls.bg_light
+                size_hint_x:    0.6
+                orientation:    'vertical'
+                padding:    20
+                Label:
+                    text:   "Результаты:"
+                    font_size:  dp(24)
+                BoxLayout:
+                    orientation: "horizontal"
+                    Label:
+                        text:   "Время начала СВ1:"
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                    Label:
+                        id:     sv1_start
+                        text:   "0 "
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                    Label:
+                        id:     sv1_start_norm
+                        text:   "Не норма"
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                BoxLayout:
+                    orientation: "horizontal"
+                    Label:
+                        text:   "Длительность СВ1:"
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                    Label:
+                        id:     sv1_range
+                        text:   "0 "
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                    Label:
+                        id:     sv1_range_norm
+                        text:   "Не норма"
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                BoxLayout:
+                    orientation: "horizontal"
+                    Label:
+                        text:   "Время начала СВ2:"
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                    Label:
+                        id:     sv2_start
+                        text:   "0 "
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                    Label:
+                        id:     sv2_start_norm
+                        text:   "Не норма"
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                BoxLayout:
+                    orientation: "horizontal"
+                    Label:
+                        text:   "Длительность СВ2:"
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                    Label:
+                        id:     sv2_range
+                        text:   "0 "
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                    Label:
+                        id:     sv2_range_norm
+                        text:   "Не норма"
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                BoxLayout:
+                    orientation: "horizontal"
+                    Label:
+                        text:   "Время начала СВ3:"
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                    Label:
+                        id:     sv3_start
+                        text:   "0 "
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                    Label:
+                        id:     sv3_start_norm
+                        text:   "Не норма"
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                BoxLayout:
+                    orientation: "horizontal"
+                    Label:
+                        text:   "Длительность СВ3:"
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                    Label:
+                        id:     sv3_range
+                        text:   "0 "
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                    Label:
+                        id:     sv3_range_norm
+                        text:   "Не норма"
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                BoxLayout:
+                    orientation: "horizontal"
+                    Label:
+                        text:   "Время начала ТМ:"
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                    Label:
+                        id:     tm_start
+                        text:   "0 "
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                    Label:
+                        id:     tm_start_norm
+                        text:   "Не норма"
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                BoxLayout:
+                    orientation: "horizontal"
+                    Label:
+                        text:   "Длительность TM:"
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                    Label:
+                        id:     tm_range
+                        text:   "0 "
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                    Label:
+                        id:     tm_range_norm
+                        text:   "Не норма"
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                BoxLayout:
+                    orientation: "horizontal"
+                    Label:
+                        text:   "Время начала СВ2 второй:"
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                    Label:
+                        id:     sv2_double_start
+                        text:   "0 "
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                    Label:
+                        id:     sv2_double_start_norm
+                        text:   "Не норма"
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                BoxLayout:
+                    orientation: "horizontal"
+                    Label:
+                        text:   "Длительность СВ2 второй:"
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                    Label:
+                        id:     sv2_double_range
+                        text:   "0 "
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+                    Label:
+                        id:     sv2_double_range_norm
+                        text:   "Норма"
+                        font_size:  dp(20)
+                        text_size:  self.size
+                        halign:     'left'
+                        valign:     'center'
+            BoxLayout:
+                size_hint_x:    0.1
+                orientation:    'vertical'
+                padding:    10
+                Widget:
+                    size_hint_y: 0.8
+                MDRaisedButton:
+                    text:       "Регистры"
+                    pos_hint:   {"center_x:": .5, "center_y": .5}
+                    font_size: '20dp'
+                    on_press:   open_registers_menu()

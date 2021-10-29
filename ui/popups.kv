@@ -1,0 +1,156 @@
+#:import DeviceConnectionError ui.popups.DeviceConnectionError
+#:import run_device_emulator utils.run_device_emulator
+#:import run_zup_emulator utils.run_zup_emulator
+
+<DeviceConnectionError>
+    title:     "Ошибка подключения блока"
+    size:       (450, 320)
+    size_hint : (None,None)
+
+    BoxLayout:
+        orientation:    'vertical'
+        spacing:    10
+        padding:    15
+
+        Label:
+            text:   "Блок ИА-ТДИ не подключен!!!"
+            font_size: '20dp'
+
+        MDRaisedButton:
+            #size_hint : (1,0.3)
+            text:   'Закрыть ПО и разобраться с аппарутрой!'
+            font_size: '20dp'
+            pos_hint: {"center_x": .5}
+            on_press:   app.stop()
+
+        MDRaisedButton:
+            text:       'Работать с эмулятором блока'
+            font_size:  '20dp'
+            pos_hint:   {"center_x": .5}
+            on_press:   run_device_emulator()
+            on_press:   root.dismiss()
+
+<DeviceZupError>
+    title:     "Ошибка подключения Zup"
+    size:       (450, 320)
+    size_hint : (None,None)
+
+    BoxLayout:
+        orientation:    'vertical'
+        spacing:    10
+        padding:    15
+
+        Label:
+            text:   "Zup не подключен!!!"
+            font_size: '20dp'
+
+        MDRaisedButton:
+            #size_hint : (1,0.3)
+            text:   'Закрыть ПО и разобраться с аппарутрой!'
+            font_size: '20dp'
+            pos_hint: {"center_x": .5}
+            on_press:   app.stop()
+
+        MDRaisedButton:
+            text:       'Работать с эмулятором Zup'
+            font_size:  '20dp'
+            pos_hint:   {"center_x": .5}
+            on_press:   run_zup_emulator()
+            on_press:   root.dismiss()
+
+<RegistersMenu>
+    title:     "Регистры блока"
+    size:       (320, 420)
+    size_hint : (None,None)
+
+    BoxLayout:
+        orientation:    'vertical'
+        spacing:    15
+        padding:    15
+
+        BoxLayout:
+            orientation:    'horizontal'
+            Label:
+                text:   "01"
+                font_size: '20dp'
+            Label:
+                font_size: '20dp'
+                id:     rg1
+        BoxLayout:
+            orientation:    'horizontal'
+            Label:
+                text:   "02"
+                font_size: '20dp'
+            Label:
+                font_size: '20dp'
+                id:     rg2
+        BoxLayout:
+            orientation:    'horizontal'
+            Label:
+                text:   "03"
+                font_size: '20dp'
+            Label:
+                font_size: '20dp'
+                id:     rg3
+        BoxLayout:
+            orientation:    'horizontal'
+            Label:
+                text:   "04"
+                font_size: '20dp'
+            Label:
+                font_size: '20dp'
+                id:     rg4
+        BoxLayout:
+            orientation:    'horizontal'
+            Label:
+                text:   "05"
+                font_size: '20dp'
+            Label:
+                font_size: '20dp'
+                id:     rg5
+        BoxLayout:
+            orientation:    'horizontal'
+            Label:
+                text:   "06"
+                font_size: '20dp'
+            Label:
+                font_size: '20dp'
+                id:     rg6
+        BoxLayout:
+            orientation:    'horizontal'
+            Label:
+                text:   "07"
+                font_size: '20dp'
+            Label:
+                font_size: '20dp'
+                id:     rg7
+        BoxLayout:
+            orientation:    'horizontal'
+            Label:
+                text:   "08"
+                font_size: '20dp'
+            Label:
+                font_size: '20dp'
+                id:     rg8
+        BoxLayout:
+            orientation:    'horizontal'
+            Label:
+                text:   "09"
+                font_size: '20dp'
+            Label:
+                font_size: '20dp'
+                id:     rg9
+        BoxLayout:
+            orientation:    'horizontal'
+            Label:
+                text:   "0A"
+                font_size: '20dp'
+            Label:
+                font_size: '20dp'
+                id:     rgA
+
+        MDRaisedButton:
+            text:       'Закрыть'
+            font_size:  '20dp'
+            pos_hint:   {"center_x": .5}
+            on_press:   root.dismiss()
